@@ -6,33 +6,27 @@
   <title>Selamat Ulang Tahun 🎉</title>
 
   <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --bg1:#0f1724; --bg2:#081022;
       --card-bg: rgba(255,255,255,0.06);
-      --glass: rgba(255,255,255,0.04);
       --accent1:#7dd3fc; --accent2:#ff77e9;
       --text:#e6eef8;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; font-family:Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      margin:0; font-family:Poppins, sans-serif;
       background:
         radial-gradient(800px 600px at 10% 10%, rgba(125,211,252,0.06), transparent),
         radial-gradient(800px 600px at 90% 20%, rgba(255,119,233,0.05), transparent),
         linear-gradient(180deg,var(--bg1),var(--bg2));
       color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      overflow: hidden;
+      overflow:hidden;
     }
 
-    /* subtle animated veil */
     .veil{
       position:fixed; inset:0; z-index:0; pointer-events:none;
       background: conic-gradient(from 0deg at 50% 50%, rgba(125,211,252,0.04), rgba(255,119,233,0.04), rgba(125,211,252,0.04));
@@ -43,116 +37,192 @@
 
     .wrap{position:relative; z-index:5; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px}
 
-    /* card */
+    /* card utama */
     .card{
-      width: min(980px, 96vw);
+      width: min(1100px, 96vw);
       display:grid;
       grid-template-columns: 1fr 420px;
       gap:20px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      border-radius:20px;
-      padding:22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border-radius:24px;
+      padding:28px;
       border:1px solid rgba(255,255,255,0.06);
       box-shadow: 0 18px 70px rgba(2,6,23,0.6);
       align-items:center;
+      position:relative;
+      overflow:visible;
     }
     @media (max-width:900px){ .card{grid-template-columns:1fr;} }
 
-    /* left hero */
-    .hero{
-      padding:6px 12px;
+    h1{
+      margin:6px 0 8px;
+      font-size: clamp(24px, 4vw, 42px);
+      line-height:1.05;
+      font-weight:700;
     }
-    .brand{
-      display:flex; gap:12px; align-items:center; margin-bottom:6px;
-    }
-    .logo{
-      width:44px; height:44px; border-radius:10px;
-      background: linear-gradient(135deg,var(--accent2),#7c3aed);
-      display:grid; place-items:center; font-weight:700; color:#081022;
-      box-shadow:0 8px 30px rgba(124,58,237,0.12);
-      font-family: "Dancing Script", cursive;
-    }
-    h1{margin:6px 0 8px; font-size: clamp(20px, 3.6vw, 36px); line-height:1.05; font-weight:700}
-    h1 .name{color:var(--accent1); text-shadow:0 8px 30px rgba(125,211,252,0.06); font-family:"Dancing Script", cursive}
+    h1 .name{color:var(--accent1); font-family:"Pacifico", cursive}
 
-    .message{color:rgba(230,238,248,0.95); font-size:1rem; line-height:1.5; margin-bottom:10px; min-height:64px}
+    .message{color:rgba(230,238,248,0.95); font-size:1rem; line-height:1.6; margin-bottom:12px; min-height:64px}
 
     .controls{display:flex; gap:10px; flex-wrap:wrap}
     .btn{
-      border: none; padding:10px 14px; border-radius:12px; cursor:pointer;
+      border:none; padding:10px 16px; border-radius:12px; cursor:pointer;
       background: linear-gradient(90deg,var(--accent1),var(--accent2)); color:#081022; font-weight:700;
-      box-shadow:0 10px 30px rgba(125,211,252,0.08);
     }
-    .btn.ghost{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,0.06); box-shadow:none }
+    .btn.ghost{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,0.06); }
 
-    /* right stage */
     .stage{display:flex; align-items:center; justify-content:center; position:relative}
     .cake-area{width:100%; max-width:360px; aspect-ratio: 1.2/1; display:grid; place-items:center; position:relative; padding:18px}
     svg{width:100%; height:100%}
-    .flame{ transform-origin:center; animation:flicker 0.12s ease-in-out infinite alternate; }
+    .flame{ transform-origin:center; animation:flameFlicker 1s infinite ease-in-out; }
     .flame.off{opacity:0; animation:none}
-    @keyframes flicker{from{transform:scaleY(.94)} to{transform:scaleY(1.06) translateY(-1px)}}
+    @keyframes flameFlicker{
+      0%{transform:scale(1) translateY(0); opacity:1}
+      50%{transform:scale(1.1,0.9) translateY(-1px); opacity:0.85}
+      100%{transform:scale(1) translateY(0); opacity:1}
+    }
 
-    /* balloons (lightweight emoji) */
-    .balloons{position:absolute; inset:0; pointer-events:none; z-index:2}
-    .balloon{position:absolute; bottom:-140px; font-size:22px; opacity:0.95; animation: float linear forwards}
-    @keyframes float{to{transform:translateY(-130vh)}}
+    /* Neon Text */
+    .neon-text {
+      font-family: "Pacifico", cursive;
+      font-size: clamp(28px, 5vw, 48px);
+      color: #fff;
+      text-align: center;
+      margin-top: 12px;
+      display:none;
+      text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+      animation: neonPulse 2s infinite alternate;
+    }
+    @keyframes neonPulse {
+      from { text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff; }
+      to { text-shadow: 0 0 20px #ff77e9, 0 0 60px #ff77e9, 0 0 100px #ff77e9; }
+    }
 
-    /* canvases */
     canvas#confetti, canvas#fireworks{position:fixed; inset:0; pointer-events:none; z-index:3}
 
-    /* footer */
-    .meta{margin-top:8px; font-size:13px; opacity:0.9; color:rgba(230,238,248,0.9)}
     footer{grid-column:1/-1; text-align:center; opacity:0.7; font-size:13px; margin-top:6px}
 
-    /* small tweaks for mobile */
-    @media (max-width:520px){
-      .card{padding:16px; gap:12px}
-      .logo{width:40px;height:40px}
-      .btn{padding:8px 12px}
+    /* Modal Gift */
+    .modal{
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+      background:rgba(0,0,0,0.5); backdrop-filter:blur(6px); z-index:10; display:none;
+    }
+    .modal-content{
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:18px;
+      padding:24px;
+      max-width:500px;
+      text-align:center;
+      box-shadow:0 15px 50px rgba(0,0,0,0.6);
+    }
+    .modal h2{font-family:"Pacifico", cursive; font-size:28px; margin-bottom:12px; color:var(--accent2);}
+    .close-btn{margin-top:12px; padding:8px 16px; border:none; border-radius:10px; background:var(--accent1); cursor:pointer;}
+
+    /* Tumblr Light dengan Kabel */
+    .tumblr {
+      position: absolute;
+      top: -70px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 700px;
+      height: 80px;
+      z-index: 6;
+    }
+    .wire {
+      position: absolute;
+      top: 30px;
+      left: 0;
+      width: 100%;
+      height: 60px;
+    }
+    .wire svg {
+      width: 100%;
+      height: 100%;
+    }
+    .bulbs {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    .bulb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent1);
+      box-shadow: 0 0 10px var(--accent1);
+      animation: blink 1.6s infinite alternate, sway 3s ease-in-out infinite;
+    }
+    .bulb:nth-child(2n) {
+      background: var(--accent2);
+      box-shadow: 0 0 10px var(--accent2);
+      animation-delay: 0.4s;
+    }
+    .bulb:nth-child(3n) {
+      background: #facc15;
+      box-shadow: 0 0 10px #facc15;
+      animation-delay: 0.8s;
+    }
+    @keyframes blink {
+      from { opacity: 1; }
+      to { opacity: 0.3; }
+    }
+    @keyframes sway {
+      0%,100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(2px) rotate(2deg); }
     }
   </style>
 </head>
 <body>
-  <div class="veil" aria-hidden="true"></div>
+  <div class="veil"></div>
 
-  <!-- lightweight canvases for visuals -->
   <canvas id="confetti"></canvas>
   <canvas id="fireworks"></canvas>
 
   <div class="wrap">
-    <div class="card" role="main" aria-labelledby="main-title">
-      <div class="hero">
-        <div class="brand">
-          <div class="logo">HB</div>
-          <div>
-            <div style="font-weight:600">Birthday Gift</div>
-            <div style="font-size:13px; opacity:.85">Khusus untukmu — buka hadiahnya!</div>
-          </div>
+    <div class="card">
+      <!-- Tumblr dengan kabel -->
+      <div class="tumblr">
+        <div class="wire">
+          <svg viewBox="0 0 700 80" preserveAspectRatio="none">
+            <path d="M0,40 Q175,10 350,40 T700,40" stroke="#444" stroke-width="2" fill="none"/>
+          </svg>
         </div>
+        <div class="bulbs">
+          <div class="bulb"></div>
+          <div class="bulb"></div>
+          <div class="bulb"></div>
+          <div class="bulb"></div>
+          <div class="bulb"></div>
+          <div class="bulb"></div>
+          <div class="bulb"></div>
+          <div class="bulb"></div>
+        </div>
+      </div>
 
-        <!-- EDIT TEXT HERE (lihat juga bagian script KONFIGURASI MUDAH) -->
-        <h1 id="main-title">Selamat Ulang Tahun, <span class="name" id="recipient">Aisyah</span> 🎂</h1>
-        <div class="message" id="msgArea">Semoga hari spesialmu penuh kebahagiaan, tawa, dan keberkahan. Terus berkarya dan bahagia selalu! 💖</div>
-
-        <div class="controls" aria-hidden="false">
-          <button class="btn" id="blowBtn" aria-pressed="false">Tiup Lilin 🎂</button>
+      <div>
+        <h1>Selamat Ulang Tahun, <span class="name" id="recipient">Rifqi</span> 🎂</h1>
+        <div class="message" id="msgArea">Semoga hari spesialmu penuh kebahagiaan</div>
+        <div class="controls">
+          <button class="btn" id="blowBtn">Tiup Lilin 🎂</button>
           <button class="btn ghost" id="musicBtn">▶️ Play Musik</button>
           <button class="btn ghost" id="openGift">🎁 Buka Hadiah</button>
         </div>
-
-        <div class="meta" style="margin-top:12px">— Dari <span id="sender">Rifqi</span></div>
+        <div style="margin-top:12px">— Dari <span id="sender">Rifqi</span></div>
+        <div id="neonText" class="neon-text">Happy Birthday!</div>
       </div>
 
-      <div class="stage" aria-hidden="false">
-        <div class="cake-area" id="cakeArea" title="Klik atau tekan 'Tiup Lilin' untuk meniup">
-          <!-- simplified SVG cake; flames can be turned off -->
-          <svg viewBox="0 0 300 220" role="img" aria-label="Kue ulang tahun">
+      <div class="stage">
+        <div class="cake-area" id="cakeArea">
+          <svg viewBox="0 0 300 220">
             <ellipse cx="150" cy="205" rx="110" ry="8" fill="#0ea5e9" opacity="0.25"></ellipse>
             <rect x="60" y="110" rx="12" width="180" height="70" fill="#ff9db5"></rect>
             <rect x="60" y="110" rx="12" width="180" height="24" fill="#ffc8d7"></rect>
             <rect x="90" y="80" rx="10" width="120" height="40" fill="#ffd4a3"></rect>
-
             <g id="candles">
               <g transform="translate(120,70)">
                 <rect x="-5" y="0" width="10" height="36" rx="3" fill="#60a5fa"></rect>
@@ -169,231 +239,148 @@
             </g>
           </svg>
         </div>
-
-        <!-- balloons overlay -->
-        <div class="balloons" id="balloons"></div>
       </div>
 
-      <footer>Tip: buka hadiah (🎁) untuk melihat pesan rahasia</footer>
+      <footer>Tip: buka hadiah (🎁) untuk pesan rahasia</footer>
     </div>
   </div>
 
-  <!-- audio (non-autoplay). GANTI URL jika mau pakai lagu lain -->
+  <!-- Modal Gift -->
+  <div class="modal" id="giftModal">
+    <div class="modal-content">
+      <h2>🎁 Halo Rifqi 🎁</h2>
+      <p id="giftMsg">Pesan rahasia di sini...</p>
+      <button class="close-btn" id="closeGift">Tutup</button>
+    </div>
+  </div>
+
   <audio id="bgm" preload="auto" loop>
     <source src="https://www.bensound.com/bensound-music/bensound-littleidea.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    /* ===========================
-       KONFIGURASI MUDAH (EDIT)
-       ===========================
-       Ubah nama penerima, pengirim, dan pesan di sini.
-    */
-    const RECIPIENT = 'RIFQI';
+    const RECIPIENT = 'Rifqi';
     const SENDER = 'Rifqi';
-    const MESSAGE = `Semoga cumlaude, lulus cepat, plis jangan error 🥲`;
-    // Jika ingin ganti musik, ubah <source> di tag <audio id="bgm"> di atas.
+    const MESSAGE = `Semoga cumlaude, lulus cepat, codenya lancar ga erorr terus🥲`;
 
-    // Apply config to DOM
     document.getElementById('recipient').textContent = RECIPIENT;
     document.getElementById('sender').textContent = SENDER;
     document.getElementById('msgArea').textContent = MESSAGE;
 
-    /* ==============
-       Balloons (light)
-       ============== */
-    const balloonsEl = document.getElementById('balloons');
-    function spawnSmallBalloons(count=6){
-      for(let i=0;i<count;i++){
-        const el = document.createElement('div');
-        el.className = 'balloon';
-        // use emoji for very light weight visuals
-        const emojis = ['🎈','🎉','💖','🎊'];
-        el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-        el.style.left = (5 + Math.random()*90) + 'vw';
-        el.style.animationDuration = (6 + Math.random()*6) + 's';
-        el.style.opacity = 0.95;
-        balloonsEl.appendChild(el);
-        // remove after animation
-        setTimeout(()=> el.remove(), 14000);
-      }
-    }
-    spawnSmallBalloons(6);
-    setInterval(()=> spawnSmallBalloons(1), 2200);
-
-    /* =====================
-       Play / Pause Music
-       ===================== */
+    /* Musik */
     const bgm = document.getElementById('bgm');
     const musicBtn = document.getElementById('musicBtn');
     let musicPlaying = false;
     musicBtn.addEventListener('click', async () => {
-      try {
-        if (!musicPlaying) {
-          await bgm.play();
-          musicBtn.textContent = '⏸️ Pause Musik';
-          musicPlaying = true;
-        } else {
-          bgm.pause();
-          musicBtn.textContent = '▶️ Play Musik';
-          musicPlaying = false;
-        }
-      } catch (e) {
-        alert('Jika musik tidak mau playing, coba tekan tombol lagi atau cek pengaturan browser.');
-      }
+      if (!musicPlaying) { await bgm.play(); musicBtn.textContent = '⏸️ Pause Musik'; musicPlaying=true; }
+      else { bgm.pause(); musicBtn.textContent = '▶️ Play Musik'; musicPlaying=false; }
     });
 
-    /* =====================
-       Confetti (optimized)
-       ===================== */
+    /* Confetti */
     const confCanvas = document.getElementById('confetti');
     const cctx = confCanvas.getContext('2d');
-    function resizeCanvases(){ confCanvas.width = innerWidth; confCanvas.height = innerHeight; fwCanvas.width = innerWidth; fwCanvas.height = innerHeight; }
-    window.addEventListener('resize', resizeCanvases);
-    const pieces = [];
-    resizeCanvases();
-
-    function spawnConfetti(x = innerWidth/2, y = innerHeight/3, n = 80){
-      // fewer pieces for mobile-friendly perf
+    confCanvas.width=innerWidth; confCanvas.height=innerHeight;
+    const pieces=[];
+    function spawnConfetti(x=innerWidth/2,y=innerHeight/3,n=80){
       for(let i=0;i<n;i++){
         pieces.push({
-          x: x + (Math.random()-0.5)*200,
-          y: y + (Math.random()-0.5)*60,
-          vx: (Math.random()-0.5)*5,
-          vy: Math.random()*-6 - 1,
-          g: 0.18 + Math.random()*0.08,
-          s: 5 + Math.random()*6,
-          rot: Math.random()*360,
-          vr: (Math.random()-0.5)*8,
-          color: `hsl(${Math.random()*360} 80% 60%)`
+          x,y,
+          vx:(Math.random()-0.5)*5,
+          vy:Math.random()*-6-1,
+          g:0.18+Math.random()*0.08,
+          s:5+Math.random()*6,
+          color:`hsl(${Math.random()*360} 80% 60%)`
         });
       }
     }
     function updateConfetti(){
-      cctx.clearRect(0,0,confCanvas.width, confCanvas.height);
+      cctx.clearRect(0,0,confCanvas.width,confCanvas.height);
       for(let i=pieces.length-1;i>=0;i--){
-        const p = pieces[i];
-        p.vy += p.g;
-        p.x += p.vx;
-        p.y += p.vy;
-        p.rot += p.vr;
-        cctx.save();
-        cctx.translate(p.x, p.y);
-        cctx.rotate(p.rot * Math.PI / 180);
-        cctx.fillStyle = p.color;
-        cctx.fillRect(-p.s/2, -p.s/2, p.s, p.s * 0.6);
-        cctx.restore();
-        if (p.y > confCanvas.height + 50) pieces.splice(i,1);
+        const p=pieces[i]; p.vy+=p.g; p.x+=p.vx; p.y+=p.vy;
+        cctx.fillStyle=p.color; cctx.fillRect(p.x,p.y,p.s,p.s*0.6);
+        if(p.y>confCanvas.height+50) pieces.splice(i,1);
       }
       requestAnimationFrame(updateConfetti);
     }
     updateConfetti();
 
-    /* =====================
-       Fireworks (light)
-       ===================== */
-    const fwCanvas = document.getElementById('fireworks');
-    const fctx = fwCanvas.getContext('2d');
+    /* Fireworks */
+    const fwCanvas=document.getElementById('fireworks');
+    const fctx=fwCanvas.getContext('2d');
+    fwCanvas.width=innerWidth; fwCanvas.height=innerHeight;
+    let fireworks=[];
     class Firework{
       constructor(x,y){
-        this.particles = [];
-        const palette = ['#fde047','#60a5fa','#34d399','#f472b6'];
-        const count = 36; // lower count for perf
-        for(let i=0;i<count;i++){
+        this.particles=[];
+        for(let i=0;i<50;i++){
+          const angle=Math.random()*2*Math.PI;
+          const speed=Math.random()*5+2;
           this.particles.push({
-            x, y,
-            a: Math.random()*Math.PI*2,
-            sp: Math.random()*4 + 1.6,
-            r: Math.random()*1.8 + 0.8,
-            life: 60 + Math.floor(Math.random()*40),
-            color: palette[Math.floor(Math.random()*palette.length)]
+            x,y,
+            vx:Math.cos(angle)*speed,
+            vy:Math.sin(angle)*speed,
+            life:80+Math.random()*40,
+            alpha:1,
+            color:`hsl(${Math.random()*360},100%,60%)`
           });
         }
       }
-      update(){ this.particles.forEach(p=>{ p.x += Math.cos(p.a)*p.sp; p.y += Math.sin(p.a)*p.sp; p.sp *= 0.98; p.life--; }); this.particles = this.particles.filter(p=>p.life>0); }
-      draw(){ this.particles.forEach(p=>{ fctx.beginPath(); fctx.arc(p.x,p.y,p.r,0,Math.PI*2); fctx.fillStyle = p.color; fctx.globalAlpha = Math.max(p.life/100, 0); fctx.fill(); fctx.globalAlpha = 1; }); }
-    }
-    const fireworks = [];
-    function animateFW(){
-      fctx.clearRect(0,0,fwCanvas.width, fwCanvas.height);
-      if(Math.random() < 0.02) fireworks.push(new Firework(Math.random()*innerWidth, innerHeight*0.25 + Math.random()*120));
-      for(let i=fireworks.length-1;i>=0;i--){
-        fireworks[i].update(); fireworks[i].draw();
-        if(fireworks[i].particles.length === 0) fireworks.splice(i,1);
+      update(){
+        this.particles.forEach(p=>{
+          p.x+=p.vx; p.y+=p.vy;
+          p.vx*=0.98; p.vy*=0.98;
+          p.vy+=0.05; p.life--; p.alpha=p.life/100;
+        });
+        this.particles=this.particles.filter(p=>p.life>0);
       }
+      draw(){
+        this.particles.forEach(p=>{
+          fctx.beginPath(); fctx.arc(p.x,p.y,2,0,Math.PI*2);
+          fctx.fillStyle=`${p.color.slice(0,-1)},${p.alpha})`.replace('hsl','hsla');
+          fctx.fill();
+        });
+      }
+    }
+    function animateFW(){
+      fctx.fillStyle="rgba(15,23,36,0.3)";
+      fctx.fillRect(0,0,fwCanvas.width,fwCanvas.height);
+      fireworks.forEach((fw,i)=>{
+        fw.update(); fw.draw();
+        if(fw.particles.length===0) fireworks.splice(i,1);
+      });
       requestAnimationFrame(animateFW);
     }
     animateFW();
 
-    /* =====================
-       Cake blow logic
-       ===================== */
-    const blowBtn = document.getElementById('blowBtn');
-    const candleFlames = document.querySelectorAll('.flame');
-    let blown = false;
-    function blowCandles(){
-      if(blown) return;
-      blown = true;
-      candleFlames.forEach(f => f.classList.add('off'));
+    /* Blow Candles */
+    const blowBtn=document.getElementById('blowBtn');
+    const candleFlames=document.querySelectorAll('.flame');
+    const neonText=document.getElementById('neonText');
+    let blown=false;
+    blowBtn.addEventListener('click',()=>{
+      if(blown) return; blown=true;
+      candleFlames.forEach(f=>f.classList.add('off'));
       spawnConfetti(innerWidth/2, innerHeight/3, 140);
-      // create 2-3 light fireworks
-      for(let i=0;i<3;i++) fireworks.push(new Firework(innerWidth * (0.2 + Math.random()*0.6), innerHeight*0.25 + Math.random()*60));
-      blowBtn.textContent = '🎉 Selamat!';
-      blowBtn.setAttribute('aria-pressed','true');
-      // small vibration
-      if(navigator.vibrate) navigator.vibrate(40);
-    }
-    blowBtn.addEventListener('click', blowCandles);
-    // also support tap on cake area
-    document.getElementById('cakeArea').addEventListener('click', blowCandles);
-
-    /* =====================
-       Open Gift (reveal secret message)
-       ===================== */
-    const openGift = document.getElementById('openGift');
-    openGift.addEventListener('click', ()=>{
-      // simple modal-like reveal using alert for lightweight; can be replaced with nicer UI
-      const secret = "Pesan Rahasia:\n\n" + MESSAGE + "\n\nSTRESSS NGODING😊 🎁";
-      // prefer nicer UI if available: simple custom overlay
-      showSecret(secret);
+      for(let i=0;i<5;i++){
+        const card=document.querySelector('.card').getBoundingClientRect();
+        const x=card.left+Math.random()*card.width;
+        const y=card.top+Math.random()*card.height/2;
+        fireworks.push(new Firework(x,y));
+      }
+      blowBtn.textContent="🎉 Selamat!";
+      neonText.style.display = "block";
     });
 
-    function showSecret(text){
-      const overlay = document.createElement('div');
-      overlay.style.position='fixed';
-      overlay.style.inset='0';
-      overlay.style.display='grid';
-      overlay.style.placeItems='center';
-      overlay.style.background='linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.8))';
-      overlay.style.zIndex = 60;
-      overlay.innerHTML = `
-        <div style="background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); padding:18px; border-radius:14px; max-width:90vw; color:var(--text); box-shadow:0 20px 60px rgba(2,6,23,0.7);">
-          <div style="font-family:'Dancing Script', cursive; font-size:22px; margin-bottom:8px;">Untuk ${RECIPIENT}</div>
-          <div style="font-size:15px; line-height:1.5; white-space:pre-wrap; margin-bottom:12px;">${text}</div>
-          <div style="text-align:right">
-            <button id="closeSecret" style="padding:8px 12px; border-radius:10px; border:none; background:linear-gradient(90deg,var(--accent1),var(--accent2)); color:#081022; font-weight:700;">Tutup</button>
-          </div>
-        </div>
-      `;
-      document.body.appendChild(overlay);
-      document.getElementById('closeSecret').addEventListener('click', ()=> overlay.remove());
-    }
-
-    /* initial small entrance confetti (light) */
-    setTimeout(()=> spawnConfetti(innerWidth/2, innerHeight/3, 70), 600);
-
-    /* accessibility: keyboard support */
-    document.addEventListener('keydown', (e)=>{
-      if(e.code === 'Space') { blowCandles(); e.preventDefault(); }
-      if(e.key === 'm' || e.key === 'M') { musicBtn.click(); }
+    /* Gift Modal */
+    const giftModal=document.getElementById('giftModal');
+    const openGift=document.getElementById('openGift');
+    const closeGift=document.getElementById('closeGift');
+    const giftMsg=document.getElementById('giftMsg');
+    openGift.addEventListener('click',()=>{
+      giftMsg.textContent=`Jangan capee ngoding yaaa, GOOGLE MENANTIMU ENJOYYY😊, ${RECIPIENT}! 🎉`;
+      giftModal.style.display='flex';
     });
-
-    /* Performance note: ensure canvases sized */
-    function init(){
-      confCanvas.width = innerWidth; confCanvas.height = innerHeight;
-      fwCanvas.width = innerWidth; fwCanvas.height = innerHeight;
-    }
-    init(); window.addEventListener('resize', init);
+    closeGift.addEventListener('click',()=>giftModal.style.display='none');
   </script>
 </body>
 </html>
